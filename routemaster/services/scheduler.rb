@@ -1,4 +1,5 @@
 require 'rufus-scheduler'
+require 'routemaster/services/deliver_metric'
 
 scheduler = Rufus::Scheduler.new
 
