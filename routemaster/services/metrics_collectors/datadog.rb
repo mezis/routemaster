@@ -16,7 +16,7 @@ module Routemaster::Services::MetricsCollectors
 
     def perform(name, value, tags = [])
       all_tags = ["environment:#{ENV['RACK_ENV']}"] << tags
-      @dog.emit_point(name, value, tags: all_tags)
+      p @dog.emit_point(name, value, tags: all_tags)
     end
 
   end
