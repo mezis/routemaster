@@ -4,12 +4,14 @@ require 'routemaster/services/deliver_metric'
 
 include Routemaster::Services::DeliverMetric
 
-scheduler = Rufus::Scheduler.new
+if ENV.fetch(['SCHEDULER_ENABLED'], false)
+  puts "SCHEDULER_ENABLED"
+  scheduler = Rufus::Scheduler.new
+else
+  puts "SCHEDULER_DISABLED"
+end
 
 scheduler.every '1s' do
-
-  puts "***** Scheduler Fired!! *****"
-
   tags = [
     "env:#{ENV['RACK_ENV']}",
     'app:routemaster'
