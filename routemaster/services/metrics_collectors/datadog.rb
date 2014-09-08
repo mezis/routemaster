@@ -3,6 +3,7 @@ require 'routemaster/services'
 
 module Routemaster::Services::MetricsCollectors
   class Datadog
+    include Singleton
 
     def initialize
       require 'dogapi'
@@ -10,7 +11,7 @@ module Routemaster::Services::MetricsCollectors
       api_key = ENV.fetch('DATADOG_API_KEY')
       @dog ||= Dogapi::Client.new(api_key)
     rescue KeyError
-        abort 'Please install and configure datadog (or equivalent service) first!'
+      abort 'Please install and configure datadog (or equivalent service) first!'
     end
 
     def perform(name, value, tags = [])
