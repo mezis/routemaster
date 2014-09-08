@@ -2,9 +2,11 @@ require 'rufus-scheduler'
 require 'routemaster/services/scheduler'
 require 'routemaster/services/deliver_metric'
 
+include Routemaster::Services::DeliverMetric
+
 scheduler = Rufus::Scheduler.new
 
-scheduler.every '1m' do
+scheduler.every '1s' do
 
   puts "***** Scheduler Fired!! *****"
 
@@ -12,7 +14,7 @@ scheduler.every '1m' do
     "env:#{ENV['RACK_ENV']}",
     'app:routemaster'
   ]
-  
+
   Routemaster::Models::Subscription.each do |subscription|
     Routemaster::Services::DeliverMetric.deliver(
       'subscription.queue.size',
@@ -22,7 +24,7 @@ scheduler.every '1m' do
 
     Routemaster::Services::DeliverMetric.deliver(
       'subscription.queue.staleness',
-      subscription.queue.age_of_oldest_message,
+      subscription.age_of_oldest_message,
       tags
     )
   end
