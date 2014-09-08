@@ -2,11 +2,10 @@ require 'rufus-scheduler'
 
 scheduler = Rufus::Scheduler.new
 
-scheduler.every '1s' do
-  puts "testing the scheduler"
-end
-
 scheduler.every '1m' do
+
+  puts "***** Scheduler Fired!! *****"
+
   tags = [
     "env:#{ENV['RACK_ENV']}",
     'app:routemaster'
