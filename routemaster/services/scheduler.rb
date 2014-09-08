@@ -1,7 +1,10 @@
 require 'rufus-scheduler'
-require 'routemaster/services/scheduler.rb'
 
 scheduler = Rufus::Scheduler.new
+
+scheduler.every '1s' do
+  puts "testing the scheduler"
+end
 
 scheduler.every '1m' do
   tags = [
