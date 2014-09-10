@@ -15,9 +15,6 @@ module Routemaster::Services::MetricsCollectors
     end
 
     def perform(name, value, tags = [])
-      p name
-      p value
-      p tags
       @dog.emit_point(name, value, tags: tags)
     end
 
